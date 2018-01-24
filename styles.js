@@ -6,7 +6,7 @@ import {
 export const styles = StyleSheet.create({
   container: {
    flex: 1,
-   paddingTop: 22,
+   padding: 22,
   },
   sectionHeader: {
     paddingTop: 2,
@@ -27,7 +27,17 @@ export const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
+    maxWidth: 150,
     height: '70%',
     borderRadius: 10,
   },
+  gridItem: {
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: 5,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: 'black',
+   }
 })

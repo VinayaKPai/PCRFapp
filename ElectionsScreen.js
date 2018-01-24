@@ -11,6 +11,7 @@ import {
   SectionList,
   FlatList,
   Header,
+  ScrollView,
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import {styles} from './styles';
@@ -45,28 +46,10 @@ export default class ElectionsScreen extends React.Component {
   renderHeader = (headerItem) => {
     return <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}> {headerItem.section.title} </Text></View>
   }
-//Display of section list items
-  renderItem = (item) => {
-    return (
-      <View style={{
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}>
-        <Text>Grid list inside render item of section list</Text>
-        <GridList
-          showSeparator
-          data={[item]}
-          numColumns={1}
-          renderItem={this.renderGridItem}
-        />
-      </View>);
-
-  }
 
   //display of grid list
   renderGridItem = ({ item, index }) => (
-    <View style={{justifyContent: 'space-between', flexDirection: 'column', alignItems: 'center',}}>
+    <View style={styles.gridItem}>
       <Text>{item.name}</Text>
       <Image style={styles.image} source={item.thumbnail} />
       <Text>{item.flatNo}</Text>
@@ -80,7 +63,7 @@ export default class ElectionsScreen extends React.Component {
    const { navigate } = this.props.navigation;
    return (
 
-     <View style={styles.container}>
+     <ScrollView style={styles.container}>
        <Text>Election: Summary of Candidates</Text>
 
         <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}> {candidateDB.GeneralCandidates.title} </Text></View>
@@ -108,7 +91,7 @@ export default class ElectionsScreen extends React.Component {
                    renderItem={this.renderGridItem}
                  />
 
-    </View>
+    </ScrollView>
 
    );
  }

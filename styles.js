@@ -6,7 +6,7 @@ import {
 export const styles = StyleSheet.create({
   container: {
    flex: 1,
-   paddingTop: 22
+   paddingTop: 22,
   },
   sectionHeader: {
     paddingTop: 2,
@@ -25,42 +25,9 @@ export const styles = StyleSheet.create({
   itemText: {
     fontSize: 18,
   },
-
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'grey',
-    width: 300,
-    height: 300,
-    opacity: 0.750,
-    marginTop: 150,
+  image: {
+    width: '100%',
+    height: '70%',
+    borderRadius: 10,
   },
-  innerContainer: {
-    alignItems: 'center',
-    backgroundColor: 'white',
-  },
-  modalView: {
-    height: 300,
-  },
-
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'lightgreen',
-    },
-    welcome: {
-      fontSize: 20,
-      textAlign: 'center',
-      margin: 10,
-      color: 'white',
-      backgroundColor: 'indigo',
-    },
-    instructions: {
-      textAlign: 'center',
-      color: '#333333',
-      marginBottom: 5,
-      backgroundColor: 'skyblue',
-    },
-
 })

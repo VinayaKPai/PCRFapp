@@ -17,6 +17,7 @@ import {
  import { StackNavigator } from 'react-navigation';
  import {styles} from './styles';
   import ElectionsScreen from './ElectionsScreen';
+import TestPage from './TestPage';
 
 const instructions = Platform.select({
   ios: 'This one is for you Apple users!,\n' +
@@ -51,6 +52,10 @@ const instructions = Platform.select({
           onPress={() => navigate('Elections')}
           title="Election Voting is now open!"
         />
+        <Button
+          onPress={() => navigate('TestPage')}
+          title="Test Page!"
+        />
       </View>
     );
   }
@@ -60,7 +65,7 @@ const instructions = Platform.select({
 export const PCRFapp = StackNavigator({
   //LHS is SHort name for calling the class on the RHS
   Home: { screen: HomeScreen },
-  // StGroups: { screen: StGrpScreen },
+  TestPage: { screen: TestPage },
   Elections: {screen: ElectionsScreen},
   // AssgnTests: {screen: AssgnTestsScreen},
   // Test: {screen: Test},

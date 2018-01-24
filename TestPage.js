@@ -8,6 +8,14 @@ const items = [
   { thumbnail: { uri: 'https://lorempixel.com/200/200/city' }, name: 'GC1', flatNo: 'Flat No.' },
   { thumbnail: { uri: 'https://lorempixel.com/200/200/nature' }, name: 'GC1', flatNo: 'Flat No.' },
   { thumbnail: { uri: 'https://lorempixel.com/200/200/cats' }, name: 'GC1', flatNo: 'Flat No.' },
+  { thumbnail: { uri: 'https://lorempixel.com/200/200/animals' }, name: 'GC1', flatNo: 'Flat No.' },
+  { thumbnail: { uri: 'https://lorempixel.com/200/200/city' }, name: 'GC1', flatNo: 'Flat No.' },
+  { thumbnail: { uri: 'https://lorempixel.com/200/200/nature' }, name: 'GC1', flatNo: 'Flat No.' },
+  { thumbnail: { uri: 'https://lorempixel.com/200/200/cats' }, name: 'GC1', flatNo: 'Flat No.' },
+  { thumbnail: { uri: 'https://lorempixel.com/200/200/animals' }, name: 'GC1', flatNo: 'Flat No.' },
+  { thumbnail: { uri: 'https://lorempixel.com/200/200/city' }, name: 'GC1', flatNo: 'Flat No.' },
+  { thumbnail: { uri: 'https://lorempixel.com/200/200/nature' }, name: 'GC1', flatNo: 'Flat No.' },
+  { thumbnail: { uri: 'https://lorempixel.com/200/200/cats' }, name: 'GC1', flatNo: 'Flat No.' },
 ];
 
 export default class TestPage extends PureComponent {
@@ -25,7 +33,7 @@ export default class TestPage extends PureComponent {
         <GridList
           showSeparator
           data={items}
-          numColumns={2}
+          numColumns={3}
           renderItem={this.renderGridItem}
         />
       </View>

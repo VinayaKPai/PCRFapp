@@ -25,7 +25,7 @@ export default class TestPage extends PureComponent {
         <GridList
           showSeparator
           data={items}
-          numColumns={2}
+          numColumns={3}
           renderItem={this.renderGridItem}
         />
       </View>

@@ -8,6 +8,12 @@ export const styles = StyleSheet.create({
    flex: 1,
    padding: 22,
   },
+  testPageContainer: {
+   flex: 1,
+   padding: 22,
+   height: 300,
+   width: 300,
+  },
   sectionHeader: {
     paddingTop: 2,
     paddingLeft: 10,

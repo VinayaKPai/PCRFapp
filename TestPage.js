@@ -1,41 +1,26 @@
 import React, { PureComponent } from 'react';
-import { View, StyleSheet, Image, Text } from 'react-native';
+import { View, StyleSheet, Image, Text, Alert } from 'react-native';
+import TestPageComponent from './TestPageComponent';
 
-import GridList from 'react-native-grid-list';
-
-const items = [
-  { thumbnail: { uri: 'https://lorempixel.com/200/200/animals' }, name: 'GC1', flatNo: 'Flat No.' },
-  { thumbnail: { uri: 'https://lorempixel.com/200/200/city' }, name: 'GC1', flatNo: 'Flat No.' },
-  { thumbnail: { uri: 'https://lorempixel.com/200/200/nature' }, name: 'GC1', flatNo: 'Flat No.' },
-  { thumbnail: { uri: 'https://lorempixel.com/200/200/cats' }, name: 'GC1', flatNo: 'Flat No.' },
-  { thumbnail: { uri: 'https://lorempixel.com/200/200/animals' }, name: 'GC1', flatNo: 'Flat No.' },
-  { thumbnail: { uri: 'https://lorempixel.com/200/200/city' }, name: 'GC1', flatNo: 'Flat No.' },
-  { thumbnail: { uri: 'https://lorempixel.com/200/200/nature' }, name: 'GC1', flatNo: 'Flat No.' },
-  { thumbnail: { uri: 'https://lorempixel.com/200/200/cats' }, name: 'GC1', flatNo: 'Flat No.' },
-  { thumbnail: { uri: 'https://lorempixel.com/200/200/animals' }, name: 'GC1', flatNo: 'Flat No.' },
-  { thumbnail: { uri: 'https://lorempixel.com/200/200/city' }, name: 'GC1', flatNo: 'Flat No.' },
-  { thumbnail: { uri: 'https://lorempixel.com/200/200/nature' }, name: 'GC1', flatNo: 'Flat No.' },
-  { thumbnail: { uri: 'https://lorempixel.com/200/200/cats' }, name: 'GC1', flatNo: 'Flat No.' },
-];
 
 export default class TestPage extends PureComponent {
-  renderGridItem = ({ item, index }) => (
-    <View style={{justifyContent: 'space-between', flexDirection: 'column', alignItems: 'center',}}>
-      <Text>{item.name}</Text>
-      <Image style={styles.image} source={item.thumbnail} />
-      <Text>{item.flatNo}</Text>
-    </View>
-  );
+  constructor(props) {
+     super(props);
+     this.state = {isChecked: false};
+     //this.setState()
+   }
 
+  onClick(data) {
+    // this.setState({
+    //         isChecked: !this.state.isChecked
+    //     })
+    //     // this.props.onClick();
+  }
   render() {
     return (
-      <View style={styles.container}>
-        <GridList
-          showSeparator
-          data={items}
-          numColumns={3}
-          renderItem={this.renderGridItem}
-        />
+      <View style={styles.testPageContainer}>
+        <Text>aaaaa</Text>
+        <TestPageComponent/>
       </View>
     );
   }

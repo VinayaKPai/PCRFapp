@@ -61,26 +61,22 @@ const candidateDB1 =  {// homogeneous rendering between sections
   ReservedCandidates: {
     title: 'Reserved Candidates',
     data: [
-      {name: 'RC1', thumbnail: { uri: 'https://lorempixel.com/200/200/nature' }, flatNo: 'Flat No.'},
+      {name: 'RC1', thumbnail: { uri: 'https://lorempixel.com/200/200/nature' }, flatNo: 'Flat No.8'},
     ],
   },
   NominatedCandidates: {
     title: 'Nominated Candidates',
     data: [
-      {name: 'NC1', thumbnail: { uri: 'https://lorempixel.com/200/200/cats' }, flatNo: 'Flat No.'},
-      {name: 'NC2', thumbnail: { uri: 'https://lorempixel.com/200/200/animals' }, flatNo: 'Flat No.'}
+      {name: 'NC1', thumbnail: { uri: 'https://lorempixel.com/200/200/cats' }, flatNo: 'Flat No.9'},
+      {name: 'NC2', thumbnail: { uri: 'https://lorempixel.com/200/200/animals' }, flatNo: 'Flat No.10'}
     ],
   },
 };
 
-
-
-const fruits = ['Apples', 'Oranges', 'Pears'];
-
 const renderLabel = (label, style, selected, rowData) => {
 // console.log(rowData);
   return (
-    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+    <View style={{justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center'}}>
     <View style={{marginRight: 10}}>
       <Text style={style}>{rowData.value.name}</Text>
     </View>
@@ -102,21 +98,18 @@ export default class ElectionsScreen extends React.Component {
      };
    }
 
-   onSelectionsChangeGeneral = (selectedGeneralCandidates, value) => {
-    // selectedFruits is array of { label, value }
-    this.setState({ selectedGeneralCandidates })
-    // alert(value.value.name+" - "+value.value.thumbnail.uri+" - "+value.value.flatNo);
+  onSelectionsChangeGeneral = (selectedGeneralCandidates, value) => {
+    this.setState({ selectedGeneralCandidates });
   }
   onSelectionsChangeReserved = (selectedReservedCandidates, value) => {
-   // selectedFruits is array of { label, value }
-   this.setState({ selectedReservedCandidates })
-   // alert(value.value.name+" - "+value.value.thumbnail.uri+" - "+value.value.flatNo);
- }
- onSelectionsChangeNominated = (selectedNominatedCandidates, value) => {
-  // selectedFruits is array of { label, value }
-  this.setState({ selectedNominatedCandidates })
-  // alert(value.value.name+" - "+value.value.thumbnail.uri+" - "+value.value.flatNo);
-}
+   this.setState({ selectedReservedCandidates });
+  }
+  onSelectionsChangeNominated = (selectedNominatedCandidates, value) => {
+    this.setState({ selectedNominatedCandidates });
+  }
+  onSelectionsChange = (selectedCandidates, value) => {
+    this.setState({ selectedCandidates });
+  }
 //Header of Section List
   renderHeader = (headerItem) => {
     return <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}> {headerItem.section.title} </Text></View>
@@ -128,7 +121,6 @@ export default class ElectionsScreen extends React.Component {
       <Text>{item.name}</Text>
       <Image style={styles.image} source={item.thumbnail} />
       <Text>{item.flatNo}</Text>
-
     </View>
   )
  static navigationOptions = {
@@ -137,64 +129,106 @@ export default class ElectionsScreen extends React.Component {
 
  render() {
    const { navigate } = this.props.navigation;
+   var selectedGeneralCandidates = this.state.selectedGeneralCandidates;
+   var selectedReservedCandidates = this.state.selectedReservedCandidates;
+   var selectedNominatedCandidates = this.state.selectedNominatedCandidates;
    return (
+     <View style={styles.container}>
+         <View>
+            <Text>Total Checked Items = [{selectedGeneralCandidates.length + selectedReservedCandidates.length + selectedNominatedCandidates.length}/10]</Text>
+         </View>
+         <ScrollView>
+             <Text>Election: Summary of Candidates</Text>
 
-     <ScrollView style={styles.container}>
-     <Text>Total Checked Items = [{this.state.selectedGeneralCandidates.length + this.state.selectedReservedCandidates.length + this.state.selectedNominatedCandidates.length}/10]</Text>
-     <Text>Election: Summary of Candidates</Text>
 
-      <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}> {candidateDB.GeneralCandidates.title} - [{this.state.selectedGeneralCandidates.length}/7]</Text></View>
-      <Text>Grid List Inside main render functions</Text>
-      <SelectMultiple
-        items={candidateDB.GeneralCandidates.data}
-        renderLabel={renderLabel}
-        selectedItems={this.state.selectedGeneralCandidates}
-        onSelectionsChange={this.onSelectionsChangeGeneral} />
-       <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}> {candidateDB.ReservedCandidates.title} - [{this.state.selectedReservedCandidates.length}/1]</Text></View>
-       <Text>Grid List Inside main render functions</Text>
-       <SelectMultiple
-         items={candidateDB.ReservedCandidates.data}
-         renderLabel={renderLabel}
-         selectedItems={this.state.selectedReservedCandidates}
-         onSelectionsChange={this.onSelectionsChangeReserved} />
-      <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}> {candidateDB.NominatedCandidates.title} - [{this.state.selectedNominatedCandidates.length}/2]</Text></View>
-        <Text>Grid List Inside main render functions</Text>
-        <SelectMultiple
-          items={candidateDB.NominatedCandidates.data}
-          renderLabel={renderLabel}
-          selectedItems={this.state.selectedNominatedCandidates}
-          onSelectionsChange={this.onSelectionsChangeNominated} />
-        <View style={{padding:3, backgroundColor: 'black'}}></View>
-       <Text>Election: Summary of Candidates</Text>
+             <View style={styles.sectionHeader}>
+                <Text style={styles.sectionHeaderText}> {candidateDB.GeneralCandidates.title} - [{selectedGeneralCandidates.length}/7]</Text>
+             </View>
+             <Text>Grid List Inside main render functions</Text>
+             <SelectMultiple
+                 items={candidateDB.GeneralCandidates.data}
+                 renderLabel={renderLabel}
+                 selectedItems={selectedGeneralCandidates}
+                 onSelectionsChange={this.onSelectionsChangeGeneral}
+             />
 
-        <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}> {candidateDB.GeneralCandidates.title} </Text></View>
-        <Text>Grid List Inside main render functions</Text>
-          <GridList
-                    showSeparator
-                   data={candidateDB1.GeneralCandidates.data}
-                   numColumns={3}
-                   renderItem={this.renderGridItem}
-                 />
-         <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}> {candidateDB.ReservedCandidates.title} </Text></View>
-         <Text>Grid List Inside main render functions</Text>
-          <GridList
-            showSeparator
-            data={candidateDB1.ReservedCandidates.data}
-            numColumns={3}
-            renderItem={this.renderGridItem}
-          />
-        <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}> {candidateDB.NominatedCandidates.title} </Text></View>
-          <Text>Grid List Inside main render functions</Text>
 
-          <GridList
-             showSeparator
-             data={candidateDB1.NominatedCandidates.data}
-             numColumns={3}
-             renderItem={this.renderGridItem}/>
-          <View style={{margin:10}}></View>
+             <View style={styles.sectionHeader}>
+                <Text style={styles.sectionHeaderText}> {candidateDB.ReservedCandidates.title} - [{this.state.selectedReservedCandidates.length}/1]</Text>
+             </View>
+             <Text>Grid List Inside main render functions</Text>
+             <SelectMultiple
+                 items={candidateDB.ReservedCandidates.data}
+                 renderLabel={renderLabel}
+                 selectedItems={this.state.selectedReservedCandidates}
+                 onSelectionsChange={this.onSelectionsChangeReserved}
+              />
 
-    </ScrollView>
 
+             <View style={styles.sectionHeader}>
+                <Text style={styles.sectionHeaderText}> {candidateDB.NominatedCandidates.title} - [{this.state.selectedNominatedCandidates.length}/2]</Text>
+             </View>
+             <Text>Grid List Inside main render functions</Text>
+             <SelectMultiple
+                 items={candidateDB.NominatedCandidates.data}
+                 renderLabel={renderLabel}
+                 selectedItems={this.state.selectedNominatedCandidates}
+                 onSelectionsChange={this.onSelectionsChangeNominated}
+             />
+
+
+
+             <View style={{padding:3, backgroundColor: 'black'}}></View>
+
+
+
+             <Text>Election: Summary of Candidates</Text>
+
+
+             <View style={styles.sectionHeader}>
+                <Text style={styles.sectionHeaderText}> {candidateDB.GeneralCandidates.title}</Text>
+             </View>
+             <Text>Grid List Inside main render functions</Text>
+             <GridList
+                 showSeparator
+                 data={candidateDB1.GeneralCandidates.data}
+                 numColumns={3}
+                 renderItem={this.renderGridItem}
+             />
+
+
+             <View style={styles.sectionHeader}>
+                <Text style={styles.sectionHeaderText}> {candidateDB.ReservedCandidates.title}</Text>
+             </View>
+             <Text>Grid List Inside main render functions</Text>
+             <GridList
+                 showSeparator
+                 data={candidateDB1.ReservedCandidates.data}
+                 numColumns={3}
+                 renderItem={this.renderGridItem}
+             />
+
+
+             <View style={styles.sectionHeader}>
+                <Text style={styles.sectionHeaderText}> {candidateDB.NominatedCandidates.title}</Text>
+             </View>
+             <Text>Grid List Inside main render functions</Text>
+             <GridList
+                 showSeparator
+                 data={candidateDB1.NominatedCandidates.data}
+                 numColumns={3}
+                 renderItem={this.renderGridItem}
+             />
+
+
+             <View style={{margin:10}}></View>
+
+
+         </ScrollView>
+         <View style={{flex:1, position: 'absolute', bottom: 0, right: 0, left: 0, height: 20, width: '150%', backgroundColor: 'steelblue'}}>
+            <Text>This is the footer section</Text>
+         </View>
+     </View>
    );
  }
 }

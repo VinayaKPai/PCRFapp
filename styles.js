@@ -6,7 +6,10 @@ import {
 export const styles = StyleSheet.create({
   container: {
    flex: 1,
-   padding: 22,
+   paddingTop: 10,
+   paddingLeft: 10,
+   paddingRight: 10,
+   paddingBottom: 70,
   },
   testPageContainer: {
    flex: 1,
@@ -45,5 +48,6 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: 'black',
+    paddingBottom: 10,
    }
 })

@@ -51,9 +51,10 @@ export default class ElectionsScreen extends React.Component {
   //display of grid list
   renderGridItem = ({ item, index }) => (
     <View style={styles.gridItem}>
-      <Text>{item.name}</Text>
       <Image style={styles.image} source={item.thumbnail} />
-      <Text>{item.flatNo}</Text>
+      <Text>{item.name} of {item.flatNo}</Text>
+      <TestPageComponent/>
+
     </View>
   )
  static navigationOptions = {

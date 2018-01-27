@@ -10,12 +10,6 @@ export default class TestPage extends PureComponent {
      //this.setState()
    }
 
-  onClick(data) {
-    // this.setState({
-    //         isChecked: !this.state.isChecked
-    //     })
-    //     // this.props.onClick();
-  }
   render() {
     return (
       <View style={styles.testPageContainer}>

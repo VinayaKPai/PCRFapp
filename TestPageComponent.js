@@ -4,7 +4,11 @@ import Display from 'react-native-display';
 import TouchableOpacityComponent from './TouchableOpacityComponent';
 import SelectMultiple from 'react-native-select-multiple';
 
-const fruits = ['Apples', 'Oranges', 'Pears']
+const fruits = [
+  { label: 'Apples', value: 'appls' },
+  { label: 'Oranges', value: 'orngs' },
+  { label: 'Pears', value: 'pears' }
+];
 export default class TestPageComponent extends Component {
 
   constructor(props) {

@@ -78,7 +78,7 @@ const candidateDB1 =  {// homogeneous rendering between sections
 const fruits = ['Apples', 'Oranges', 'Pears'];
 
 const renderLabel = (label, style, selected, rowData) => {
-console.log(rowData);
+// console.log(rowData);
   return (
     <View style={{flexDirection: 'row', alignItems: 'center'}}>
     <View style={{marginRight: 10}}>
@@ -96,15 +96,27 @@ export default class ElectionsScreen extends React.Component {
   constructor(props) {
      super(props);
      this.state = {
-       selectedCandidates: [],
+       selectedGeneralCandidates: [],
+       selectedReservedCandidates: [],
+       selectedNominatedCandidates: [],
      };
    }
 
-   onSelectionsChange = (selectedCandidates, value) => {
+   onSelectionsChangeGeneral = (selectedGeneralCandidates, value) => {
     // selectedFruits is array of { label, value }
-    this.setState({ selectedCandidates })
+    this.setState({ selectedGeneralCandidates })
     // alert(value.value.name+" - "+value.value.thumbnail.uri+" - "+value.value.flatNo);
   }
+  onSelectionsChangeReserved = (selectedReservedCandidates, value) => {
+   // selectedFruits is array of { label, value }
+   this.setState({ selectedReservedCandidates })
+   // alert(value.value.name+" - "+value.value.thumbnail.uri+" - "+value.value.flatNo);
+ }
+ onSelectionsChangeNominated = (selectedNominatedCandidates, value) => {
+  // selectedFruits is array of { label, value }
+  this.setState({ selectedNominatedCandidates })
+  // alert(value.value.name+" - "+value.value.thumbnail.uri+" - "+value.value.flatNo);
+}
 //Header of Section List
   renderHeader = (headerItem) => {
     return <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}> {headerItem.section.title} </Text></View>
@@ -113,9 +125,9 @@ export default class ElectionsScreen extends React.Component {
   //display of grid list
   renderGridItem = ({ item, index }) => (
     <View style={styles.gridItem}>
+      <Text>{item.name}</Text>
       <Image style={styles.image} source={item.thumbnail} />
-      <Text>{item.name} of {item.flatNo}</Text>
-      <TestPageComponent/>
+      <Text>{item.flatNo}</Text>
 
     </View>
   )
@@ -128,13 +140,31 @@ export default class ElectionsScreen extends React.Component {
    return (
 
      <ScrollView style={styles.container}>
-     <SelectMultiple
-       items={candidateDB.GeneralCandidates.data}
-       renderLabel={renderLabel}
-       selectedItems={this.state.selectedCandidates}
-       onSelectionsChange={this.onSelectionsChange} />
-     <Text>checkedItems Array = {this.state.selectedCandidates.length}</Text>
+     <Text>Total Checked Items = [{this.state.selectedGeneralCandidates.length + this.state.selectedReservedCandidates.length + this.state.selectedNominatedCandidates.length}/10]</Text>
+     <Text>Election: Summary of Candidates</Text>
 
+      <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}> {candidateDB.GeneralCandidates.title} - [{this.state.selectedGeneralCandidates.length}/7]</Text></View>
+      <Text>Grid List Inside main render functions</Text>
+      <SelectMultiple
+        items={candidateDB.GeneralCandidates.data}
+        renderLabel={renderLabel}
+        selectedItems={this.state.selectedGeneralCandidates}
+        onSelectionsChange={this.onSelectionsChangeGeneral} />
+       <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}> {candidateDB.ReservedCandidates.title} - [{this.state.selectedReservedCandidates.length}/1]</Text></View>
+       <Text>Grid List Inside main render functions</Text>
+       <SelectMultiple
+         items={candidateDB.ReservedCandidates.data}
+         renderLabel={renderLabel}
+         selectedItems={this.state.selectedReservedCandidates}
+         onSelectionsChange={this.onSelectionsChangeReserved} />
+      <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}> {candidateDB.NominatedCandidates.title} - [{this.state.selectedNominatedCandidates.length}/2]</Text></View>
+        <Text>Grid List Inside main render functions</Text>
+        <SelectMultiple
+          items={candidateDB.NominatedCandidates.data}
+          renderLabel={renderLabel}
+          selectedItems={this.state.selectedNominatedCandidates}
+          onSelectionsChange={this.onSelectionsChangeNominated} />
+        <View style={{padding:3, backgroundColor: 'black'}}></View>
        <Text>Election: Summary of Candidates</Text>
 
         <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}> {candidateDB.GeneralCandidates.title} </Text></View>
@@ -161,7 +191,7 @@ export default class ElectionsScreen extends React.Component {
              data={candidateDB1.NominatedCandidates.data}
              numColumns={3}
              renderItem={this.renderGridItem}/>
-
+          <View style={{margin:10}}></View>
 
     </ScrollView>
 

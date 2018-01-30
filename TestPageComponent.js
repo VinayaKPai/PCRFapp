@@ -26,6 +26,7 @@ export default class TestPageComponent extends Component {
 
 onClicked(id, isChk, checkedItemsTemp) {
   checkedItemsTemp.push(id);
+  alert('clicked');
   // alert('Array on clicked TPComponent '+checkedItemsTemp);
   // alert('on clicked TPComponent '+id+"-"+isChk);
   this.setState({checkedItems: checkedItemsTemp});
@@ -34,18 +35,17 @@ onClicked(id, isChk, checkedItemsTemp) {
   render() {
     // var checkedItems = [2, 3, 4];
     return (
-      <View>
-      <Text>Touchable Opacity tag with image inside</Text>
-      <Text id='OnTestComponentPage' onPress={() => this.onClicked(this.props.id, this.state.isChecked, this.state.checkedItems)}>
-        <Image style={styles.imageCheckBox} source={{uri: './assets/icons/ic_check_box.png'}}/>Click here </Text>
-
-      <Text>Display Enabled tag with touchable opacity imported component id=10.</Text>
+      <ScrollView>
+        <Text>TPC Begins</Text>
+        <Text id='OnTestComponentPage' onPress={() => this.onClicked(this.props.id, this.state.isChecked, this.state.checkedItems)}>
+          <Image style={styles.imageCheckBox} source={{uri: './assets/icons/ic_check_box.png'}}/>Click here TO On-Test-Component-Page id</Text>
+        <Text>Display Enabled tag with touchable opacity imported component id=10.</Text>
         <Display enable={this.state.isChecked}>
-          <TouchableOpacityComponent id="10" imgSrc="./assets/icons/ic_check_box.png"/>
+          <Text>Touchable Opacity comp was here</Text>
         </Display>
         <Text>Display Enabled tag with touchable opacity imported component id=20.</Text>
         <Display enable={this.state.isChecked}>
-          <TouchableOpacityComponent id="20" imgSrc="./assets/icons/ic_check_box_outline_blank.png"/>
+          <Text>Touchable Opacity comp was here</Text>
         </Display>
         <Text>checkedItems Array = {this.state.checkedItems}</Text>
         <View>
@@ -55,7 +55,8 @@ onClicked(id, isChk, checkedItemsTemp) {
           onSelectionsChange={this.onSelectionsChange} />
         <Text>checkedItems Array = {this.state.selectedFruits.length}</Text>
       </View>
-      </View>
+      <Text>TPC Ends</Text>
+      </ScrollView>
     );
   }
 }

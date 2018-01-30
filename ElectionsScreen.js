@@ -16,7 +16,8 @@ import {styles} from './styles';
 import GridList from 'react-native-grid-list';
 import TestPageComponent from './TestPageComponent';
 import SelectMultiple from 'react-native-select-multiple';
-
+import TouchableOpacityComponent from './TouchableOpacityComponent';
+import DisplayComponent from './DisplayComponent';
 
 const candidateDB =  {// homogeneous rendering between sections
   GeneralCandidates: {
@@ -80,7 +81,7 @@ const fruits = ['Apples', 'Oranges', 'Pears'];
 const renderLabel = (label, style, selected, rowData) => {
 console.log(rowData);
   return (
-    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+    <View style={{flexDirection: 'column', alignItems: 'center'}}>
     <View style={{marginRight: 10}}>
       <Text style={style}>{rowData.value.name}</Text>
     </View>
@@ -110,13 +111,12 @@ export default class ElectionsScreen extends React.Component {
     return <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}> {headerItem.section.title} </Text></View>
   }
 
+  // <Image style={styles.gridimage} source={item.thumbnail} />
+  // <Text>{item.name} of {item.flatNo}</Text>
   //display of grid list
   renderGridItem = ({ item, index }) => (
     <View style={styles.gridItem}>
-      <Image style={styles.image} source={item.thumbnail} />
-      <Text>{item.name} of {item.flatNo}</Text>
-      <TestPageComponent/>
-
+      <DisplayComponent children={["Adi","Abhi","Kavya"]} textStyles={[styles.textA, styles.textB]} buttonStyles={[styles.buttonB, styles.buttonA]}/>
     </View>
   )
  static navigationOptions = {
@@ -129,38 +129,45 @@ export default class ElectionsScreen extends React.Component {
 
      <ScrollView style={styles.container}>
      <SelectMultiple
-       items={candidateDB.GeneralCandidates.data}
-       renderLabel={renderLabel}
-       selectedItems={this.state.selectedCandidates}
-       onSelectionsChange={this.onSelectionsChange} />
+         items={candidateDB.GeneralCandidates.data}
+         renderLabel={renderLabel}
+         style={{flexDirection: 'row', flexWrap: 'wrap'}}
+         rowStyle={styles.gridItem}
+         selectedItems={this.state.selectedCandidates}
+         onSelectionsChange={this.onSelectionsChange} />
      <Text>checkedItems Array = {this.state.selectedCandidates.length}</Text>
-
-       <Text>Election: Summary of Candidates</Text>
-
-        <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}> {candidateDB.GeneralCandidates.title} </Text></View>
-        <Text>Grid List Inside main render functions</Text>
-          <GridList
-                    showSeparator
-                   data={candidateDB1.GeneralCandidates.data}
-                   numColumns={3}
-                   renderItem={this.renderGridItem}
-                 />
-         <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}> {candidateDB.ReservedCandidates.title} </Text></View>
-         <Text>Grid List Inside main render functions</Text>
+     <Text>Election: Summary of Candidates</Text>
+     <View style={styles.sectionHeader}>
+        <Text style={styles.sectionHeaderText}> {candidateDB.GeneralCandidates.title} </Text>
+     </View>
+     <Text>Grid List on Election Screen page</Text>
+     <ScrollView style={styles.container}>
           <GridList
             showSeparator
-            data={candidateDB1.ReservedCandidates.data}
+            data={candidateDB1.GeneralCandidates.data}
             numColumns={3}
             renderItem={this.renderGridItem}
-          />
-        <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}> {candidateDB.NominatedCandidates.title} </Text></View>
-          <Text>Grid List Inside main render functions</Text>
-
-          <GridList
-             showSeparator
-             data={candidateDB1.NominatedCandidates.data}
-             numColumns={3}
-             renderItem={this.renderGridItem}/>
+           />
+      </ScrollView>
+      <View style={styles.sectionHeader}>
+          <Text style={styles.sectionHeaderText}> {candidateDB.ReservedCandidates.title} </Text>
+      </View>
+      <Text>Grid List Inside main render functions</Text>
+      <GridList
+        showSeparator
+        data={candidateDB1.ReservedCandidates.data}
+        numColumns={3}
+        renderItem={this.renderGridItem}
+      />
+      <View style={styles.sectionHeader}>
+          <Text style={styles.sectionHeaderText}> {candidateDB.NominatedCandidates.title} </Text>
+      </View>
+      <Text>Grid List Inside main render functions</Text>
+      <GridList
+           showSeparator
+           data={candidateDB1.NominatedCandidates.data}
+           numColumns={3}
+           renderItem={this.renderGridItem}/>
 
 
     </ScrollView>

@@ -67,9 +67,6 @@ export const PCRFapp = StackNavigator({
   Home: { screen: HomeScreen },
   TestPage: { screen: TestPage },
   Elections: {screen: ElectionsScreen},
-  // AssgnTests: {screen: AssgnTestsScreen},
-  // Test: {screen: Test},
-  // EditStudents: {screen: EditStudentsScreen},
-});
+  });
 
 AppRegistry.registerComponent('PCRFapp', () => PCRFapp);

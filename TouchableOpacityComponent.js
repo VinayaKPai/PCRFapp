@@ -11,22 +11,22 @@ export default class TouchableOpacityComponent extends Component {
    }
 
   onClick = (id, imgSrc) => {
-    // this.setState({ isChecked: !this.state.isChecked });
-    // alert(id+" from TOComponent  "+imgSrc);
-    // alert('Array from TOComponent  '+checkedItems);
-    // if (this.state.isChecked='true'){
-    //   checkedItems.push(1);
-    // }
-    // else {
-    //   checkedItems.push(-1);
-    // }
+    this.setState({ isChecked: !this.state.isChecked });
+    alert(id+" from TOComponent  "+imgSrc);
+    alert('Array from TOComponent  '+checkedItems);
+    if (this.state.isChecked='true'){
+      checkedItems.push(1);
+    }
+    else {
+      checkedItems.push(-1);
+    }
   }
   render() {
     var pic = this.props.imgSrc;
     return (
           <TouchableOpacity onPress={() => this.onClick(this.props.id, this.props.imgSrc)}>
-            <Text>{this.props.id} - {this.props.imgSrc}</Text>
-
+            <Text>Id {this.props.id} - Img Src{this.props.imgSrc}</Text>
+            <Text>TOC</Text>
           </TouchableOpacity>
     );
   }

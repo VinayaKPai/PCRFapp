@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import {styles} from './styles';
+import checkbox from './assets/icons/ic_check_box_outline_blank.png';
+import checkboxChecked from './assets/icons/ic_check_box.png';
 
 export default class displayComponent extends Component {
   constructor(props) {
@@ -41,16 +43,28 @@ render = () => {
     return (
       <View>
         <Text>chosen = {""+this.state.chosen}</Text>
-        <TouchableOpacity onPress={() => this.showId(children[0])}>
-            <Text style={textStyles}>Child 0 -{children[0].name}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.showId(children[1])}>
-            <Text style={textStyles}>Child 1 -{children[1].name}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.showId(children[2])}>
-            <Text style={textStyles}>Child 2 -{children[2].name}</Text>
-        </TouchableOpacity>
+        <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
+            <TouchableOpacity onPress={() => this.showId(children[0])}>
+              <View style={{flexDirection:'row'}}>
+                <Text style={children[0].isChecked=='T'?textStyles[0]:textStyles[1]}>Child 0 -{children[0].name}</Text>
+                <Image source={children[0].isChecked=='T'?checkboxChecked:checkbox} />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.showId(children[1])}>
+              <View style={{flexDirection:'row'}}>
+                <Text style={children[1].isChecked=='T'?textStyles[0]:textStyles[1]}>Child 1 -{children[1].name}</Text>
+                <Image source={children[1].isChecked=='T'?checkboxChecked:checkbox} />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.showId(children[2])}>
+              <View style={{flexDirection:'row'}}>
+                <Text style={children[2].isChecked=='T'?textStyles[0]:textStyles[1]}>Child 2 -{children[2].name}</Text>
+                <Image source={children[2].isChecked=='T'?checkboxChecked:checkbox} />
+              </View>
+            </TouchableOpacity>
+        </View>
         <Text>rejected = {""+this.state.rejected}</Text>
+
       </View>
     );
   }

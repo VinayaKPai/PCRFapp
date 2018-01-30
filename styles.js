@@ -19,8 +19,8 @@ export const styles = StyleSheet.create({
   },
   textA: {//for displayComponent
     fontWeight: 'bold',
-    color: 'red',
-    backgroundColor: '#d80c1c',
+    color: 'white',
+    backgroundColor: 'green',
   },
   textB: {//for displayComponent
     fontWeight: 'bold',

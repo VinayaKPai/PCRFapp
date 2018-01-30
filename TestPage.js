@@ -23,8 +23,8 @@ export default class TestPage extends PureComponent {
           {name: "Abhi", isChecked: "F",},
           {name: "Kavya", isChecked: "F",},
         ]}
-        textStyles={styles.textB}/>
-          </View>
+        textStyles={[styles.textA, styles.textB]}/>
+      </View>
     );
   }
 }

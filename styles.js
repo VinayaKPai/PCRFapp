@@ -72,10 +72,10 @@ export const styles = StyleSheet.create({
   },
   gridItem: {
     // justifyContent: 'space-between',
+    alignItems: 'center',
     flexDirection: 'column',
-    // alignItems: 'center',
-    margin: 5,
-    maxWidth: 100,
+    margin: 1,
+    width: 100,
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: 'black',

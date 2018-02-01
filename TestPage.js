@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, StyleSheet, Image, Text, Alert } from 'react-native';
+import { View, StyleSheet, Image, Text, Alert, ScrollView } from 'react-native';
 import TestPageComponent from './TestPageComponent';
 import DisplayComponent from './DisplayComponent';
 import {styles} from './styles';
@@ -44,12 +44,12 @@ export default class TestPage extends PureComponent {
    };
   render() {
     return (
-      <View style={styles.testPageContainer}>
+      <ScrollView style={styles.testPageContainer}>
         <Text>Test Page DispC below</Text>
         <DisplayComponent
         children={candidateDB1.GeneralCandidates.data}
         textStyles={[styles.textA, styles.textB]}/>
-      </View>
+      </ScrollView>
     );
   }
 }

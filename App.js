@@ -18,6 +18,7 @@ import {
  import {styles} from './styles';
   import ElectionsScreen from './ElectionsScreen';
 import TestPage from './TestPage';
+import TestPage2 from './TestPage2';
 
 const instructions = Platform.select({
   ios: 'This one is for you Apple users!,\n' +
@@ -56,6 +57,10 @@ const instructions = Platform.select({
           onPress={() => navigate('TestPage')}
           title="Test Page!"
         />
+        <Button
+        onPress={() => navigate('TestPage2')}
+        title="Test Page2!"
+        />
       </View>
     );
   }
@@ -66,6 +71,7 @@ export const PCRFapp = StackNavigator({
   //LHS is SHort name for calling the class on the RHS
   Home: { screen: HomeScreen },
   TestPage: { screen: TestPage },
+  TestPage2: {screen: TestPage},
   Elections: {screen: ElectionsScreen},
   });
 

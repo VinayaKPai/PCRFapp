@@ -17,7 +17,10 @@ export default class displayComponent extends Component {
       selectedList: [],
       selectedListTemp: [],
       selectedCandidateList: [],
+      // renderedGrid: this.renderGrid(),
+      renderedGrid: this.renderGrid(),
     };
+
     // var selectedListTemp = [];
   }
   static propTypes = {
@@ -28,29 +31,101 @@ export default class displayComponent extends Component {
       PropTypes.shape({}),
     ]).isRequired,
   }
-  showId (child){
+
+renderGrid () {
+  // alert("renderGrid");
+  var children = this.props.children;
+  var textStyles = this.props.textStyles;
+  console.log("Funct Start");
+  console.log(children);
+  var renderedGrid = [];
+  for(var i=0; i<children.length; i++){
+
+    console.log(children[i]);
+    //   renderedGrid.push(<TouchableOpacity key={i} onPress={this.showId = this.showId.bind(this, children[i])
+    //   } style={styles.gridItem}>
+    //     <View>
+    //     <Image source={children[i].isChecked=='T'?checkboxChecked:checkbox} />
+    //     <Text style={children[i].isChecked=='T'?textStyles[0]:textStyles[1]}> {children[i].name}</Text>
+    //     <Image style={{width: 42, height: 42}} source={children[i].thumbnail} />
+    //     <Text>{children[i].flatNo}</Text>
+    //     </View>
+    //   </TouchableOpacity>
+    // );
+
+    //ABOVE RENDERGRID GIVES AN ALERT OF [object OBJECT] for showid
+    //WORKING ON THE RENDERGRID WITH MY ORIGINAL IDEA OF PUSHING A KEY VALUE PAIR INSTEAD OF ONLY A VIEW
+    // CHANGES PLANNED #1 SAVE THE VIEW IN A VARIABLE FIRST, WHICH WILL BECOME THE VALUE FOR A KEY CALLED DISP
+    //#2 INTRODUCE A KEY CALLED NAME, WHICH WILL INITIALLY BE HARDCODED BUT WILL LATER BE THE SAME AS THE NAME KEY IN THE ITEM PASSED FROM THE TESTPAGE
+    var dispName = children[i].name;
+    var disp = (<TouchableOpacity key={i} onPress={this.showId = this.showId.bind(this, children[i])
+    } style={styles.gridItem}>
+      <View>
+      <Image source={children[i].isChecked=='T'?checkboxChecked:checkbox} />
+      <Text style={children[i].isChecked=='T'?textStyles[0]:textStyles[1]}> {children[i].name}</Text>
+      <Image style={{width: 42, height: 42}} source={children[i].thumbnail} />
+      <Text>{children[i].flatNo}</Text>
+      </View>
+    </TouchableOpacity>);
+    renderedGrid.push({disp,dispName});
+    console.log(renderedGrid[i]);
+    // alert("done");
+    // this.setState({renderedGrid: renderedGrid});
+  }
+  return ([renderedGrid]);
+}
+
+//   showId (child){
+// console.log("Before");
+// console.log(child);
+//     if (child.isChecked=='F'){
+//       child.isChecked = 'T';
+//       this.setState({anyValueChanged: true});
+//       this.setState({ selectedCount: this.state.selectedCount + 1 });
+//       var temp = this.state.selectedList;
+//       temp.push(child.name);
+//       this.setState({selectedList: temp});
+//     }
+//     else if (child.isChecked=='T'){
+//       child.isChecked = 'F';
+//       this.setState({anyValueChanged: false});
+//       var removeIndex = this.state.selectedList.indexOf(child.name);
+//       var temp = this.state.selectedList;
+//       temp.splice(removeIndex, 1);
+//       console.log(""+temp);
+//       }
+//       console.log("After");
+//       console.log(child);
+//     return child;
+//   }
+
+//ORIGINAL SHOWID ABOVE
+//REFACTORED SHOWID FOR THE renderedGrid RENDERING below
+//IF
+showId (child){//child now holds renderedgrid i
 console.log("Before");
 console.log(child);
-    if (child.isChecked=='F'){
-      child.isChecked = 'T';
-      this.setState({anyValueChanged: true});
-      this.setState({ selectedCount: this.state.selectedCount + 1 });
-      var temp = this.state.selectedList;
-      temp.push(child.name);
-      this.setState({selectedList: temp});
-    }
-    else if (child.isChecked=='T'){
-      child.isChecked = 'F';
-      this.setState({anyValueChanged: false});
-      var removeIndex = this.state.selectedList.indexOf(child.name);
-      var temp = this.state.selectedList;
-      temp.splice(removeIndex, 1);
-      console.log(""+temp);
-      }
-      console.log("After");
-      console.log(child);
-    return child;
-  }
+alert (child);
+  // if (child.isChecked=='F'){
+  //   child.isChecked = 'T';
+  //   this.setState({anyValueChanged: true});
+  //   this.setState({ selectedCount: this.state.selectedCount + 1 });
+  //   var temp = this.state.selectedList;
+  //   temp.push(child.name);
+  //   this.setState({selectedList: temp});
+  // }
+  // else if (child.isChecked=='T'){
+  //   child.isChecked = 'F';
+  //   this.setState({anyValueChanged: false});
+  //   var removeIndex = this.state.selectedList.indexOf(child.name);
+  //   var temp = this.state.selectedList;
+  //   temp.splice(removeIndex, 1);
+  //   console.log(""+temp);
+  //   }
+  //   console.log("After");
+  //   console.log(child);
+  // return child;
+}
   onSubmit(childrenTemp) {
     var selectedCandidateList = [];
     for(var i=0; i<childrenTemp.length; i++){
@@ -137,8 +212,12 @@ render = () => {
               title="Submit selected Candidates"
             />
             <Text>My Voted Candidates =     {""+this.state.selectedList}
-
             </Text>
+        </View>
+        <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
+
+          {this.state.renderedGrid}
+          <Text>Last Textbox</Text>
         </View>
       </View>
     );

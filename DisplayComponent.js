@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, StyleSheet, Text, Image, TouchableOpacity, Button } from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableOpacity, Button, ScrollView } from 'react-native';
 import {styles} from './styles';
 import checkbox from './assets/icons/ic_check_box_outline_blank.png';
 import checkboxChecked from './assets/icons/ic_check_box.png';
@@ -34,18 +34,16 @@ renderGrid () {
   var textStyles = this.props.textStyles;
   var renderedGrid = [];
   for(var i=0; i<children.length; i++){
-    console.log(children[i]);
     var dispName = children[i].name;
     var disp = (<TouchableOpacity key={dispName} onPress={this.showId.bind(this,dispName) } style={styles.gridItem}>
       <View>
-      <Image source={this.props.children[i].isChecked=='T'?checkboxChecked:checkbox} />
+      <Image source={this.props.children[i].isChecked=='T'?checkboxChecked:checkbox} style={{width: 10, height: 10}}/>
       <Text style={children[i].isChecked=='T'?textStyles[0]:textStyles[1]}> {children[i].name}</Text>
-      <Image style={{width: 42, height: 42}} source={children[i].thumbnail} />
-      <Text>{children[i].flatNo}</Text>
+      <Image style={styles.itemImage} source={children[i].thumbnail} />
+      <Text style={styles.textSecondary}>{children[i].flatNo}</Text>
       </View>
     </TouchableOpacity>);
     renderedGrid.push(disp);
-    console.log(renderedGrid[i]);
   }
   return (renderedGrid);
 }
@@ -64,17 +62,22 @@ showId (clickedName){
       }
     }
   }
-
+  for (i=0;i<this.props.children.length;i++){
+    if (this.props.children[i].isChecked=='T'){
+      var selectedCandidateList = [];
+      selectedCandidateList.push(this.props.children[i]);
+    }
+  }
+    this.setState({selectedCandidateList: selectedCandidateList});
 }
   onSubmit(childrenTemp) {
     var selectedCandidateList = [];
-    for(var i=0; i<childrenTemp.length; i++){
-      if (childrenTemp[i].isChecked=='T') {
-        selectedCandidateList.push(childrenTemp[i]);
+    for(i=0;i<this.props.children.length;i++){
+      if (this.props.children[i].isChecked=='T') {
+        selectedCandidateList.push(this.props.children[i]);
       }
     }
     this.setState({selectedCandidateList: selectedCandidateList});
-    console.log(selectedCandidateList);
   }
 
 render = () => {
@@ -82,16 +85,13 @@ render = () => {
 
     return (
       <View>
-        <Text>Total Selected = {this.state.selectedCount-this.state.deselectedCount}</Text>
-        <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
-        {this.renderGrid()}
-        </View>
-        <Button
-          onPress={() => this.onSubmit(children)}
-          title="Submit selected Candidates"
-        />
-        <Text>My Voted Candidates =     {""+this.state.selectedList}
-        </Text>
+        <ScrollView>
+          <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
+          {this.renderGrid()}
+          </View>
+        </ScrollView>
+
+
       </View>
     );
   }

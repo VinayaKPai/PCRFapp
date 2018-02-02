@@ -38,7 +38,6 @@ export const styles = StyleSheet.create({
    flex: 1,
    padding: 22,
    height: 300,
-   width: 300,
   },
   sectionHeader: {
     paddingTop: 2,
@@ -64,7 +63,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
   gridimage: {
-    width: '50%',
+    width: 300,
     maxWidth: 100,
     height: '30%',
     maxHeight: 50,

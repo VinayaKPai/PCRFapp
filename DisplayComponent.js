@@ -11,25 +11,25 @@ export default class displayComponent extends Component {
     super(props);
     this.state = {
       chosenCandidates: [],
-      textStyles: [],
       anyValueChanged: false,
-      listDataFromChild: {},
+      listDataFromChild: {
+        name: null,
+        thumbnail: {uri: null},
+        flatNo:  null,
+        isChecked: null,
+      },
       selectedCandidateList: [],
+      displaySelectedCandidateList: [],
     };
   }
   static propTypes = {
     children: PropTypes.arrayOf(PropTypes.object).isRequired,
-    textStyles: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.number,
-      PropTypes.shape({}),
-    ]).isRequired,
   }
 
-  myCallback = (dataFromChild) => {
+  myCallbackGridItem = (dataFromChild) => {
     for (var i=0; i<this.props.children; i++) {
       if(this.props.children[i].name==dataFromChild.name) {
-        this.props.children[i].isChecked=dataFromChild.isChecked;
+        this.props.children[i].isChecked=!this.props.children[i].isChecked;
       }
     }
       this.setState({ listDataFromChild: dataFromChild });
@@ -38,40 +38,54 @@ export default class displayComponent extends Component {
   onSubmit() {
     var selectedCandidateList = [];
     for(var i=0; i<this.props.children.length; i++){
-      if (this.props.children[i].isChecked=='T') {
+      if (this.props.children[i].isChecked) {
         selectedCandidateList.push(this.props.children[i]);
       }
     }
-    this.setState({selectedCandidateList: selectedCandidateList});
-    console.log(selectedCandidateList);
+    this.setState({selectedCandidateList: selectedCandidateList}, function() {
+      this.displaySelectedCandidateList();
+    });
   }
 
+  renderGridItems() {
+    var renderedContent = [];
+    for(var i=0; i<this.props.children.length; i++){
+      renderedContent.push(<DisplayGridItem key={"gridItem-"+i} callbackFromParent={this.myCallbackGridItem.bind(this)} candidateData={this.props.children[i]}/>);
+    }
+    return renderedContent;
+  }
 
+  displaySelectedCandidateList() {
+    var selectedCandidateListDisplay=[];
+    for(var i=0; i<this.state.selectedCandidateList.length;i++) {
+        selectedCandidateListDisplay.push(<View key={i}>
+          <Text>{"\n"} {i+1}. Name: {this.state.selectedCandidateList[i].name}
+                {"\n"}    Thumbnail: {this.state.selectedCandidateList[i].thumbnail.uri}
+                {"\n"}    Flat Number: {this.state.selectedCandidateList[i].flatNo}
+          </Text>
+          </View>);
+    }
+
+  this.setState({displaySelectedCandidateList:  selectedCandidateListDisplay });
+
+  }
 
 render = () => {
-    const { textStyles, buttonStyles, children} = this.props;
+    const { buttonStyles, children} = this.props;
 
     return (
       <ScrollView>
         <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
-          <DisplayGridItem callbackFromParent={this.myCallback} candidateData={children[0]} textStyles={textStyles}/>
-          <DisplayGridItem callbackFromParent={this.myCallback} candidateData={children[1]} textStyles={textStyles}/>
-          <DisplayGridItem callbackFromParent={this.myCallback} candidateData={children[2]} textStyles={textStyles}/>
-          <DisplayGridItem callbackFromParent={this.myCallback} candidateData={children[3]} textStyles={textStyles}/>
-          <DisplayGridItem callbackFromParent={this.myCallback} candidateData={children[4]} textStyles={textStyles}/>
-          <DisplayGridItem callbackFromParent={this.myCallback} candidateData={children[5]} textStyles={textStyles}/>
-          <DisplayGridItem callbackFromParent={this.myCallback} candidateData={children[6]} textStyles={textStyles}/>
+          {this.renderGridItems()}
+          </View>
+          <View>
           <Button
             onPress={() => this.onSubmit(children)}
             title="Submit selected Candidates"
           />
           <Text>My Voted Candidates = {this.state.selectedCandidateList.length}</Text>
-          <Text>Candidate Details passed from Child =
-                {"\n"} Name: {this.state.listDataFromChild.name}
-                {"\n"} Thumbnail: {this.state.listDataFromChild.name}
-                {"\n"} Flat Number: {this.state.listDataFromChild.name}
-                {"\n"} Selected: {this.state.listDataFromChild.isChecked}
-          </Text>
+          <Text>Selected Candidate List</Text>
+          {this.state.displaySelectedCandidateList}
         </View>
       </ScrollView>
     );

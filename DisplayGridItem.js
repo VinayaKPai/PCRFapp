@@ -12,19 +12,14 @@ export default class DisplayGridItem extends Component {
   }
   static propTypes = {
     candidateData: PropTypes.object.isRequired,
-    textStyles: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.number,
-      PropTypes.shape({}),
-    ]).isRequired,
-    callbackFromParent: PropTypes.func.isRequired,
+    callbackFromParent: PropTypes.func,
   }
   updateSelected (){
     var candidateData = this.props.candidateData;
-    if(candidateData.isChecked=='F') {
-      candidateData.isChecked='T';
-    } else if(candidateData.isChecked=='T') {
-      candidateData.isChecked='F';
+    if(candidateData.isChecked==false) {
+      candidateData.isChecked=true;
+    } else if(candidateData.isChecked==true) {
+      candidateData.isChecked=false;
     }
     this.props.callbackFromParent(candidateData);
   }
@@ -37,13 +32,13 @@ export default class DisplayGridItem extends Component {
   }
 
   render = () => {
-      const { textStyles, candidateData } = this.props;
+      const candidateData = this.props.candidateData;
 
       return (
           <TouchableOpacity onPress={() => this.updateSelected()} style={styles.gridItem}>
             <View>
-              <Image source={candidateData.isChecked == 'T' ? checkboxChecked : checkbox} />
-              <Text style={candidateData.isChecked == 'T' ? textStyles[0] : textStyles[1]}> {candidateData.name}</Text>
+              <Image source={candidateData.isChecked ? checkboxChecked : checkbox} />
+              <Text style={candidateData.isChecked ? styles.textA : styles.textB}> {candidateData.name}</Text>
               <Image style={{width: 42, height: 42}} source={candidateData.thumbnail} />
               <Text>{candidateData.flatNo}</Text>
             </View>

@@ -9,26 +9,26 @@ const candidateDB1 =  {// homogeneous rendering between sections
   GeneralCandidates: {
     title: 'General Candidates',
     data: [
-      {name: 'GC1', thumbnail: { uri: 'https://lorempixel.com/200/200/animals' }, flatNo: 'Flat No.1', isChecked: 'F'},
-      {name: 'GC2', thumbnail: { uri: 'https://lorempixel.com/200/200/city' }, flatNo: 'Flat No.2', isChecked: 'F'},
-      {name: 'GC3', thumbnail: { uri: 'https://lorempixel.com/200/200/cats' }, flatNo: 'Flat No.3', isChecked: 'F'},
-      {name: 'GC4', thumbnail: { uri: 'https://lorempixel.com/200/200/animals' }, flatNo: 'Flat No.4', isChecked: 'F'},
-      {name: 'GC5', thumbnail: { uri: 'https://lorempixel.com/200/200/city' }, flatNo: 'Flat No.5', isChecked: 'F'},
-      {name: 'GC6', thumbnail: { uri: 'https://lorempixel.com/200/200/cats' }, flatNo: 'Flat No.6', isChecked: 'F'},
-      {name: 'GC7', thumbnail: { uri: 'https://lorempixel.com/200/200/cats' }, flatNo: 'Flat No.7', isChecked: 'F'},
+      {name: 'GC1', thumbnail: { uri: 'https://lorempixel.com/200/200/animals' }, flatNo: 'Flat No.1', isChecked: false},
+      {name: 'GC2', thumbnail: { uri: 'https://lorempixel.com/200/200/city' }, flatNo: 'Flat No.2', isChecked: false},
+      {name: 'GC3', thumbnail: { uri: 'https://lorempixel.com/200/200/cats' }, flatNo: 'Flat No.3', isChecked: false},
+      {name: 'GC4', thumbnail: { uri: 'https://lorempixel.com/200/200/animals' }, flatNo: 'Flat No.4', isChecked: false},
+      {name: 'GC5', thumbnail: { uri: 'https://lorempixel.com/200/200/city' }, flatNo: 'Flat No.5', isChecked: false},
+      {name: 'GC6', thumbnail: { uri: 'https://lorempixel.com/200/200/cats' }, flatNo: 'Flat No.6', isChecked: false},
+      {name: 'GC7', thumbnail: { uri: 'https://lorempixel.com/200/200/cats' }, flatNo: 'Flat No.7', isChecked: false},
     ],
   },
   ReservedCandidates: {
     title: 'Reserved Candidates',
     data: [
-      {name: 'RC1', thumbnail: { uri: 'https://lorempixel.com/200/200/city' }, flatNo: 'Flat No.8', isChecked: 'F'},
+      {name: 'RC1', thumbnail: { uri: 'https://lorempixel.com/200/200/city' }, flatNo: 'Flat No.8', isChecked: false},
     ],
   },
   NominatedCandidates: {
     title: 'Nominated Candidates',
     data: [
-      {name: 'NC1', thumbnail: { uri: 'https://lorempixel.com/200/200/cats' }, flatNo: 'Flat No.9', isChecked: 'F'},
-      {name: 'NC2', thumbnail: { uri: 'https://lorempixel.com/200/200/animals' }, flatNo: 'Flat No.10', isChecked: 'F'}
+      {name: 'NC1', thumbnail: { uri: 'https://lorempixel.com/200/200/cats' }, flatNo: 'Flat No.9', isChecked: false},
+      {name: 'NC2', thumbnail: { uri: 'https://lorempixel.com/200/200/animals' }, flatNo: 'Flat No.10', isChecked: false}
     ],
   },
 };
@@ -37,12 +37,61 @@ const candidateDB1 =  {// homogeneous rendering between sections
 export default class TestPage extends PureComponent {
   constructor(props) {
      super(props);
-     this.state = {isChecked: false};
-     //this.setState()
+     this.state = {
+       isChecked: false,
+       selectedCandidateList: [],
+       selectedCandidateName: "Aditya",
+       anyValueChanged: false,
+     };
    }
    static navigationOptions = {
      title: 'Test Page',
    };
+
+   myCallBack (selectedCandidateName) {
+     alert(selectedCandidateName);
+     // alert(this.state.anyValueChanged?"True":"False");
+     for(var i=0;i<candidateDB1.GeneralCandidates.data.length;i++) {
+       if(candidateDB1.GeneralCandidates.data[i].name==selectedCandidateName) {
+         candidateDB1.GeneralCandidates.data[i].isChecked = !candidateDB1.GeneralCandidates.data[i].isChecked;
+         var anyValueChanged = this.state.anyValueChanged;
+          this.setState({anyValueChanged: !anyValueChanged});
+       }
+     }
+     for(var j=0;j<candidateDB1.ReservedCandidates.data.length;j++) {
+       if(candidateDB1.ReservedCandidates.data[j].name==selectedCandidateName) {
+         candidateDB1.ReservedCandidates.data[j].isChecked = !candidateDB1.ReservedCandidates.data[j].isChecked;
+         // this.setState({anyValueChanged: !this.state.anyValueChanged});
+       }
+     }
+     for(var k=0;k<candidateDB1.NominatedCandidates.data.length;k++) {
+       if(candidateDB1.NominatedCandidates.data[k].name==selectedCandidateName) {
+         candidateDB1.NominatedCandidates.data[k].isChecked = !candidateDB1.NominatedCandidates.data[k].isChecked;
+         // this.setState({anyValueChanged: !this.state.anyValueChanged});
+       }
+     }
+     // this.setState({selectedCandidateName: selectedCandidateName});
+   }
+
+   onSubmit() {
+     var selectedCandidateList = [];
+     for(var i=0;i<candidateDB1.GeneralCandidates.data.length;i++) {
+       if(candidateDB1.GeneralCandidates.data[i].isChecked==true) {
+         selectedCandidateList.push(candidateDB1.GeneralCandidates.data[i]);
+       }
+     }
+     for(var j=0;j<candidateDB1.ReservedCandidates.data.length;j++) {
+       if(candidateDB1.ReservedCandidates.data[j].isChecked==true) {
+         selectedCandidateList.push(candidateDB1.ReservedCandidates.data[j]);
+       }
+     }
+     for(var k=0;k<candidateDB1.NominatedCandidates.data.length;k++) {
+       if(candidateDB1.NominatedCandidates.data[k].isChecked==true) {
+         selectedCandidateList.push(candidateDB1.NominatedCandidates.data[k]);
+       }
+     }
+     this.setState({selectedCandidateList: selectedCandidateList});
+   }
   render() {
     return (
       <View style={styles.testPageContainer}>
@@ -56,6 +105,7 @@ export default class TestPage extends PureComponent {
             <Text style={{width: '2%', marginTop: 10, backgroundColor: '#33adff', textAlign :'right'}}>0</Text>
           </View>
           <DisplayComponent
+          callBackFunction={this.myCallBack}
           children={candidateDB1.GeneralCandidates.data}
           textStyles={[styles.textSelected, styles.textDeselected]}/>
           <View style={{flexDirection: 'row'}}>
@@ -63,6 +113,7 @@ export default class TestPage extends PureComponent {
             <Text style={{width: '2%',backgroundColor: '#33adff', textAlign :'right'}}>0</Text>
           </View>
           <DisplayComponent
+          callBackFunction={this.myCallBack}
           children={candidateDB1.ReservedCandidates.data}
           textStyles={[styles.textSelected, styles.textDeselected]}/>
           <View style={{flexDirection: 'row'}}>
@@ -70,10 +121,11 @@ export default class TestPage extends PureComponent {
             <Text style={{width: '2%',backgroundColor: '#33adff', textAlign :'right'}}>0</Text>
           </View>
           <DisplayComponent
+          callBackFunction={this.myCallBack}
           children={candidateDB1.NominatedCandidates.data}
           textStyles={[styles.textSelected, styles.textDeselected]}/>
-          <Text>My Voted Candidates =     {""+this.state.selectedCandidateList}
-          </Text>
+          <Text>My Voted Candidates =     {""+this.state.selectedCandidateList.length}</Text>
+          <Text>My selected Candidates =     {this.state.selectedCandidateName}</Text>
         </ScrollView>
         <Text>asdf{this.state.selectedCandidateList}</Text>
         <Button

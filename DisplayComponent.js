@@ -37,8 +37,8 @@ renderGrid () {
     var dispName = children[i].name;
     var disp = (<TouchableOpacity key={dispName} onPress={this.showId.bind(this,dispName) } style={styles.gridItem}>
       <View>
-      <Image source={this.props.children[i].isChecked=='T'?checkboxChecked:checkbox} style={{width: 10, height: 10}}/>
-      <Text style={children[i].isChecked=='T'?textStyles[0]:textStyles[1]}> {children[i].name}</Text>
+      <Image source={this.props.children[i].isChecked?checkboxChecked:checkbox} style={{width: 10, height: 10}}/>
+      <Text style={children[i].isChecked?textStyles[0]:textStyles[1]}> {children[i].name}</Text>
       <Image style={styles.itemImage} source={children[i].thumbnail} />
       <Text style={styles.textSecondary}>{children[i].flatNo}</Text>
       </View>
@@ -53,32 +53,13 @@ showId (clickedName){
     var clickedChecked = this.props.children[i].isChecked;
     var clickedCandidate = this.props.children[i].name;
     if (clickedName==clickedCandidate) {
-      if (clickedChecked=='F'){
-        this.setState({anyValueChanged: true});
-        this.props.children[i].isChecked='T';
-      } else if (clickedChecked=='T'){
-        this.setState({anyValueChanged: false});
-        this.props.children[i].isChecked='F';
-      }
+      this.props.children[i].isChecked = !this.props.children[i].isChecked;
+      this.setState({anyValueChanged: !this.state.anyValueChanged});
     }
   }
-  for (i=0;i<this.props.children.length;i++){
-    if (this.props.children[i].isChecked=='T'){
-      var selectedCandidateList = [];
-      selectedCandidateList.push(this.props.children[i]);
-    }
-  }
-    this.setState({selectedCandidateList: selectedCandidateList});
+  this.props.callBackFunction(clickedName);
 }
-  onSubmit(childrenTemp) {
-    var selectedCandidateList = [];
-    for(i=0;i<this.props.children.length;i++){
-      if (this.props.children[i].isChecked=='T') {
-        selectedCandidateList.push(this.props.children[i]);
-      }
-    }
-    this.setState({selectedCandidateList: selectedCandidateList});
-  }
+
 
 render = () => {
     const { textStyles, buttonStyles, children} = this.props;

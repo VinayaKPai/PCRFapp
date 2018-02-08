@@ -14,11 +14,8 @@ import {
   Button,
   Image,
 } from 'react-native';
- import { StackNavigator } from 'react-navigation';
- import {styles} from './styles';
-  import ElectionsScreen from './ElectionsScreen';
-import TestPage from './TestPage';
-import TestPage2 from './TestPage2';
+import { StackNavigator } from 'react-navigation';
+import {styles} from './../styles/styles';
 
 const instructions = Platform.select({
   ios: 'This one is for you Apple users!,\n' +
@@ -28,7 +25,7 @@ const instructions = Platform.select({
 });
 
 
- class HomeScreen extends React.Component {
+ export default class HomeScreen extends React.Component {
    static navigationOptions = {
      title: 'Welcome to Platinum City Residents Forum',
    };
@@ -37,7 +34,7 @@ const instructions = Platform.select({
     return (
       <View style={styles.container}>
       <Image
-      source={ require('./assets/icons/pcrfhome.png')}
+      source={ require('./../assets/icons/pcrfhome.png')}
       style={{width: 400, height: 200}}
       />
         <Text style={styles.welcome}>
@@ -49,30 +46,16 @@ const instructions = Platform.select({
         <Text style={styles.instructions}>
           {instructions}
         </Text>
-        <Button
-          onPress={() => navigate('Elections')}
-          title="Election Voting is now open!"
-        />
+
         <Button
           onPress={() => navigate('TestPage')}
           title="Test Page!"
         />
         <Button
-        onPress={() => navigate('TestPage2')}
-        title="Test Page2!"
+        onPress={() => navigate('ElectionContainer')}
+        title="Election Open"
         />
       </View>
     );
   }
 }
-
-
-export const PCRFapp = StackNavigator({
-  //LHS is SHort name for calling the class on the RHS
-  Home: { screen: HomeScreen },
-  TestPage: { screen: TestPage },
-  TestPage2: {screen: TestPage},
-  Elections: {screen: ElectionsScreen},
-  });
-
-AppRegistry.registerComponent('PCRFapp', () => PCRFapp);
